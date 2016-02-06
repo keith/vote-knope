@@ -6,7 +6,7 @@ import os
 import requests
 import sys
 
-COMMENTS_TO_DELETE = ["+1", ":+1:"]
+COMMENTS_TO_DELETE = ["+1", ":+1:", "-1", ":-1:"]
 
 
 class GithubHook(MethodView):
@@ -43,7 +43,7 @@ class GithubHook(MethodView):
         body = comment.get("body")
 
         if body.strip() not in COMMENTS_TO_DELETE:
-            return "Not a +1, so it's fine"
+            return "Not a +1 or -1, so it's fine"
 
         comment_url = comment.get("url")
         auth = (os.environ["github_user"], os.environ["github_pass"])
